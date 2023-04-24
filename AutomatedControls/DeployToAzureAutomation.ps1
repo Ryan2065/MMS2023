@@ -23,6 +23,12 @@ foreach ($Runbook in $Runbooks) {
             Write-Verbose "Runbook $($Runbook.BaseName) already exists in Azure and is up to date"
             continue
         }
+        else{
+            Write-Verbose "Runbook $($Runbook.BaseName) already exists in Azure but is out of date - Will import"
+        }
+    }
+    else{
+        Write-Verbose "Runbook $($Runbook.BaseName) does not exist in Azure - Will import"
     }
     $null = Import-AzAutomationRunbook -ResourceGroupName $ResourceGroupName -AutomationAccountName $AutomationAccountName -Path $Runbook.FullName -Type PowerShell -Force -Published
 }
