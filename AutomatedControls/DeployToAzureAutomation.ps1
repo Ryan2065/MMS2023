@@ -12,6 +12,7 @@ $Runbooks = Get-ChildItem -Path $RunbookLocation -Recurse -Include *.ps1 -File
 $AllAzureRunbooks = Get-AzAutomationRunbook -ResourceGroupName $ResourceGroupName -AutomationAccountName $AutomationAccountName -ErrorAction SilentlyContinue
 $ExportedRunbookFolder = [System.IO.Path]::Join($PSScriptRoot, "bin", "ExportedRunbooks")
 
+$null = New-Item -ItemType Directory -Path $ExportedRunbookFolder -Force
 # Import runbooks to Azure
 foreach ($Runbook in $Runbooks) {
     Export-AzAutomationRunbook -Name $Runbook.BaseName -ResourceGroupName $ResourceGroupName -AutomationAccountName $AutomationAccountName -OutputFolder $ExportedRunbookFolder -Force -ErrorAction SilentlyContinue
