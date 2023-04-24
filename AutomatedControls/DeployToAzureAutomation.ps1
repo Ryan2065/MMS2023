@@ -1,5 +1,6 @@
 
-(Get-Module -ListAvailable).Name | Select-Object -Unique
+Set-PSRepository PSGallery -InstallationPolicy Trusted
+Install-Module Az.Automation -Force -Confirm:$false
 
 $ResourceGroupName = "AutomationAccountRG"
 $AutomationAccountName = "AutomationAccount"
