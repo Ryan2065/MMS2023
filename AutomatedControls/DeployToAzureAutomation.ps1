@@ -1,4 +1,4 @@
-$VerbosePreference = 'Continue'
+$VerbosePreference = 'SilentlyContinue'
 
 #Install Az.Automation module
 Set-PSRepository PSGallery -InstallationPolicy Trusted
