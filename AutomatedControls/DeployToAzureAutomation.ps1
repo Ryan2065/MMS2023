@@ -29,6 +29,7 @@ foreach ($Runbook in $Runbooks) {
     }
     else{
         Write-Verbose "Runbook $($Runbook.BaseName) does not exist in Azure - Will import"
+        (Get-ChildItem $ExportedRunbookFolder -Recurse).FullName
     }
     $null = Import-AzAutomationRunbook -ResourceGroupName $ResourceGroupName -AutomationAccountName $AutomationAccountName -Path $Runbook.FullName -Type PowerShell -Force -Published
 }
