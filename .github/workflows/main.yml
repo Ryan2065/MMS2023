@@ -16,4 +16,4 @@ jobs:
       - name: RunDeployScript
         shell: pwsh
         run: |
-          .\AutomatedControls\DeployToAzureAutomation.ps1
+          ./AutomatedControls/DeployToAzureAutomation.ps1
