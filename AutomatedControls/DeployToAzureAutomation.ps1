@@ -1,4 +1,6 @@
 
+(Get-Module -ListAvailable).Name | Select-Object -Unique
+
 $ResourceGroupName = "AutomationAccountRG"
 $AutomationAccountName = "AutomationAccount"
 
