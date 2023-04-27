@@ -30,7 +30,7 @@ jobs:
         run: |
           ./AutomatedControls/Deploy.ps1
   deploy-prod:
-    needs: build
+    needs: deploy-dev
     runs-on: windows-latest
     environment: PROD
     steps:
