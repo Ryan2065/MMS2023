@@ -1,5 +1,11 @@
 $VerbosePreference = 'SilentlyContinue'
 
+<#
+To run locally:
+First run Connect-AzAccount to authenticate to Azure
+Then run Set-AzContext -SubscriptionId '***' -TenantId '***' if more than one subscription
+#>
+
 #Install Az.Automation module
 Set-PSRepository PSGallery -InstallationPolicy Trusted
 Install-Module Az.Automation -Force -Confirm:$false
