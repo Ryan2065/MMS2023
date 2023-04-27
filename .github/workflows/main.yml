@@ -1,21 +1,45 @@
-name: Deploy to Azure Automation
+name: Build and Deploy to Azure Automation
 
 on:
-  push:
+  pull_request:
     branches:
-      - "main"
+      - main
+  workflow_dispatch:
 jobs:
-  build-and-deploy:
+  build:
     runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: RunBuildScript
+        shell: pwsh
+        run: |
+          ./AutomatedControls/Build.ps1
+  deploy-dev:
+    needs: build
+    runs-on: windows-latest
+    environment: DEV
+    steps:
       - name: Azure Login
         uses: Azure/login@v1.4.6
         with:
           creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.AZUREAUTOMATIONSPNPW }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
           enable-AzPSSession: true 
-      - name: RunDeployScript
+      - name: Run deploy script
         shell: pwsh
         run: |
-          ./AutomatedControls/DeployToAzureAutomation.ps1
+          ./AutomatedControls/Deploy.ps1
+  deploy-prod:
+    needs: build
+    runs-on: windows-latest
+    environment: PROD
+    steps:
+      - name: Azure Login
+        uses: Azure/login@v1.4.6
+        with:
+          creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.AZUREAUTOMATIONSPNPW }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
+          enable-AzPSSession: true 
+      - name: Run deploy script
+        shell: pwsh
+        run: |
+          ./AutomatedControls/Deploy.ps1
