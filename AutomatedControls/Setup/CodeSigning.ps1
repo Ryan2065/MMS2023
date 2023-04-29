@@ -68,3 +68,4 @@ if(-not (Test-Path $CertFolderLocation)) {
     $SigningCert = ( Get-ChildItem -Path cert:\LocalMachine\My\<CertificateThumbprint>)
     Set-AuthenticodeSignature .\TestRunbook.ps1 -Certificate $SigningCert
 #>
+
