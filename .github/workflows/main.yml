@@ -28,6 +28,10 @@ jobs:
         with:
           creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.AZUREAUTOMATIONSPNPW }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
           enable-AzPSSession: true 
+      - name: Getls
+        shell: pwsh
+        run: |
+          Get-ChildItem -Recurse
       - name: Run deploy script
         shell: pwsh
         run: |
