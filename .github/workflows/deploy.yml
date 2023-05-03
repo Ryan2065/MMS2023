@@ -22,7 +22,7 @@ on:
           required: true
 jobs:
     deploy:
-        environment: ${{ github.event.inputs.environment }}
+        environment: ${{ inputs.environment }}
         runs-on: windows-latest
         steps:
           - name: Download artifact
