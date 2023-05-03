@@ -30,7 +30,7 @@ jobs:
       - name: Run deploy script
         shell: pwsh
         run: |
-          ./AutomatedControls/AutomatedControls/Deploy.ps1
+          ./AutomatedControls/Deploy.ps1
   deploy-prod:
     needs: deploy-dev
     runs-on: windows-latest
