@@ -22,6 +22,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: AutomatedControls
+          path: ./
       - name: Azure Login
         uses: Azure/login@v1.4.6
         with:
