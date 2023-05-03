@@ -1,0 +1,22 @@
+name: Deploy Azure Automation
+
+on:
+    workflow_call:
+jobs:
+    deploy:
+        runs-on: windows-latest
+        steps:
+          - name: Download artifact
+            uses: actions/download-artifact@v3
+            with:
+              name: AutomatedControls
+              path: ./
+          - name: Azure Login
+            uses: Azure/login@v1.4.6
+            with:
+              creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.AZUREAUTOMATIONSPNPW }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
+              enable-AzPSSession: true 
+          - name: Run deploy script
+            shell: pwsh
+            run: |
+              ./Deploy.ps1 -AutomationAccountName "${{vars.AutomationAccountName}}" -ResourceGroupName "${{vars.ResourceGroupName}}" 

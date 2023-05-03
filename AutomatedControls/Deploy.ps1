@@ -1,3 +1,7 @@
+param(
+    [string]$AutomationAccountName = "AutomationAccount",
+    [string]$ResourceGroupName = "AutomationAccountRG"
+)
 $VerbosePreference = 'SilentlyContinue'
 
 <#
@@ -9,10 +13,6 @@ Then run Set-AzContext -SubscriptionId '***' -TenantId '***' if more than one su
 #Install Az.Automation module
 Set-PSRepository PSGallery -InstallationPolicy Trusted
 Install-Module Az.Automation -Force -Confirm:$false
-
-# Set ResourceGroup and Automation Account Name
-$ResourceGroupName = "AutomationAccountRG"
-$AutomationAccountName = "AutomationAccount"
 
 # Set paths we'll need
 $RunbookLocation = [System.IO.Path]::Join($PSScriptRoot, "Runbooks")
