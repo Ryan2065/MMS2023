@@ -5,21 +5,23 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch  name'
+        required: true
+        default: 'main'
 jobs:
   build:
-    runs-on: windows-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: RunBuildScript
-        shell: pwsh
-        run: |
-          ./AutomatedControls/Build.ps1
+    uses: ./.github/workflows/build.yml
   deploy-dev:
     needs: build
     runs-on: windows-latest
     environment: DEV
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: AutomatedControls
       - name: Azure Login
         uses: Azure/login@v1.4.6
         with:
@@ -34,6 +36,10 @@ jobs:
     runs-on: windows-latest
     environment: PROD
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: AutomatedControls
       - name: Azure Login
         uses: Azure/login@v1.4.6
         with:
