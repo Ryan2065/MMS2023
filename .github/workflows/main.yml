@@ -14,24 +14,12 @@ jobs:
   build:
     uses: ./.github/workflows/build.yml
   deploy-dev:
-    runs-on: windows-latest
-    environment: DEV
     needs: build
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.inputs.branch }}
-      - name: Deploy to Dev
-        uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: DEV
   deploy-prod:
     needs: deploy-dev
-    runs-on: windows-latest
-    environment: PROD
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.inputs.branch }}
-      - name: Deploy to Dev
-        uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: PROD

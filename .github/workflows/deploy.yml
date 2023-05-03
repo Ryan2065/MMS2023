@@ -2,8 +2,15 @@ name: Deploy Azure Automation
 
 on:
     workflow_call:
+      inputs:
+        environment:
+          description: 'The environment to deploy to'
+          required: true
+          default: 'DEV'
+          type: string
 jobs:
     deploy:
+        environment: ${{ github.event.inputs.environment }}
         runs-on: windows-latest
         steps:
           - name: Download artifact
