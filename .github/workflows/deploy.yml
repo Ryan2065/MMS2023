@@ -6,8 +6,20 @@ on:
         environment:
           description: 'The environment to deploy to'
           required: true
-          default: 'DEV'
           type: string
+      secrets:
+        CLIENT_ID:
+          description: 'The client id of the service principal used to deploy'
+          required: true
+        AZUREAUTOMATIONSPNPW:
+          description: 'The password of the service principal used to deploy'
+          required: true
+        SUBSCRIPTION_ID:
+          description: 'The subscription id to deploy to'
+          required: true
+        TENANT_ID:
+          description: 'The tenant id to deploy to'
+          required: true
 jobs:
     deploy:
         environment: ${{ github.event.inputs.environment }}
