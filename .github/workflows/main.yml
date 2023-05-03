@@ -18,10 +18,20 @@ jobs:
     environment: DEV
     needs: build
     steps:
-    - uses: ./.github/workflows/deploy.yml
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch }}
+      - name: Deploy to Dev
+        uses: ./.github/workflows/deploy.yml
   deploy-prod:
     needs: deploy-dev
     runs-on: windows-latest
     environment: PROD
     steps:
-      - uses: ./.github/workflows/deploy.yml
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch }}
+      - name: Deploy to Dev
+        uses: ./.github/workflows/deploy.yml
